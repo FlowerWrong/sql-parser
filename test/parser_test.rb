@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class TestParser < Minitest::Test
@@ -19,8 +21,8 @@ class TestParser < Minitest::Test
   end
 
   def test_insert_with_quotes
-    q =  'INSERT INTO "users" ("active", "created_on", "email", "last_login", "password", "salt", "username") VALUES ("a", "b", "c", "c", "e")'
-    q.gsub!(/([^\\])"/) { $1 + '`' }
+    q = 'INSERT INTO "users" ("active", "created_on", "email", "last_login", "password", "salt", "username") VALUES ("a", "b", "c", "c", "e")'
+    q.gsub!(/([^\\])"/) { Regexp.last_match(1) + '`' }
     assert_understands q
   end
 
@@ -278,11 +280,11 @@ class TestParser < Minitest::Test
   end
 
   def test_quoting
-    assert_sql %{SELECT ''}, %{SELECT ""}
-    assert_understands %{SELECT ''}
+    assert_sql %(SELECT ''), %(SELECT "")
+    assert_understands %(SELECT '')
 
-    assert_sql %{SELECT 'Quote "this"'}, %{SELECT "Quote ""this"""}
-    assert_understands %{SELECT 'Quote ''this!'''}
+    assert_sql %(SELECT 'Quote "this"'), %(SELECT "Quote ""this""")
+    assert_understands %(SELECT 'Quote ''this!''')
 
     # # FIXME
     # assert_sql %{SELECT '"'}, %{SELECT """"}

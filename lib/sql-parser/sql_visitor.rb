@@ -1,7 +1,7 @@
+# frozen_string_literal: true
+
 module SQLParser
-
   class SQLVisitor
-
     def initialize
       @negated = false
     end
@@ -47,7 +47,7 @@ module SQLParser
       "DISTINCT(#{visit(o.column)})"
     end
 
-    def visit_All(o)
+    def visit_All(_o)
       '*'
     end
 
@@ -272,19 +272,19 @@ module SQLParser
       "-#{visit(o.value)}"
     end
 
-    def visit_True(o)
+    def visit_True(_o)
       'TRUE'
     end
 
-    def visit_False(o)
+    def visit_False(_o)
       'FALSE'
     end
 
-    def visit_Null(o)
+    def visit_Null(_o)
       'NULL'
     end
 
-    def visit_CurrentUser(o)
+    def visit_CurrentUser(_o)
       'CURRENT_USER'
     end
 
@@ -356,7 +356,5 @@ module SQLParser
     def qualified_join(join_type, o)
       "#{visit(o.left)} #{join_type} JOIN #{visit(o.right)} #{visit(o.search_condition)}"
     end
-
   end
-
 end

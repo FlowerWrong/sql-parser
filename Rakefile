@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'lib/sql-parser/version'
 require 'bundler/gem_tasks'
 require 'rake/testtask'
@@ -19,9 +21,8 @@ file GENERATED_PARSER => 'lib/sql-parser/parser.racc' do |t|
   sh "bundle exec racc -o #{t.name} #{t.prerequisites.first}"
 end
 
-task :parser => [GENERATED_LEXER, GENERATED_PARSER]
+task parser: [GENERATED_LEXER, GENERATED_PARSER]
 
 # Make sure the parser's up-to-date when we test.
 Rake::Task['test'].prerequisites << :parser
-task :default => :test
-
+task default: :test

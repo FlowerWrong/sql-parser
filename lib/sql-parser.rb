@@ -1,5 +1,6 @@
-module SQLParser
+# frozen_string_literal: true
 
+module SQLParser
   require 'strscan'
   require 'date'
 
@@ -9,5 +10,4 @@ module SQLParser
   require_relative 'sql-parser/statement'
   require_relative 'sql-parser/sql_visitor'
   require_relative 'sql-parser/parser.racc.rb'
-
 end
